@@ -79,7 +79,7 @@ public class PA09 extends JPanel{
       frame.setVisible(true);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws NullPointerException {
       //Schedule a job for the event-dispatching thread:
       //creating and showing this application's GUI.
       javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -102,7 +102,7 @@ public class PA09 extends JPanel{
   }
 
 
-  public static String createword(Map<Integer, String>vocabulary){
+  public static String createword(Map<Integer, String>vocabulary) throws NullPointerException{
     int value = (int)(Math.random()*30000);
     while (value > 19785){
       value = (int)(Math.random()*30000);
