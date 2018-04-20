@@ -1,17 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.io.*;
 
 /**
 * This demo creates a telephone keyboard of buttons.
 */
 public class PA08 extends JPanel{
-	public PA08(){
-		super();
+     Map<Integer,String> vocabulary;
+     vocabulary = new HashMap<Integer,String>();
+	public PA08(){  
+    super();
 		JPanel content = this;
 		content.setLayout(new BorderLayout());
 
-    String word = "APPLE";
+    String word = createword(Map<Integer, String>vocabulary);
     JLabel title = new JLabel("<html><h1>Hangled Man</h1></html>");
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     JButton start = new JButton("start");
@@ -20,7 +24,7 @@ public class PA08 extends JPanel{
       +"The user is able to guess this word letter by letter,\n"
       +"and the user has 5 opportunities to have a wrong guess.\n"
       +"After the man in the middle of the window is drawn completely,the user loses the game.\n"
-      +"The user can use “Start” Button to start the game, and the “End” Button to exit the game.");
+      +"The user can use Start Button to start the game, and the End Button to exit the game.");
     intro.setEditable(false);
     JTextArea center = new JTextArea();
     JButton end = new JButton("end");
@@ -82,5 +86,26 @@ public class PA08 extends JPanel{
               createAndShowGUI();
           }
       });
+
+
+  }
+
+  public static void createdata(Map<Integer, String>vocabulary) throws FileNotFoundException{
+    File data = new File("datasource.txt");
+    Scanner reader =new Scanner(data);
+    String x;
+    for (int i=1; i<=19785; i++){
+      x=reader.nextLine;
+      vocabulary.put(i, x);
+    }
+  }
+
+
+  public static String createword(Map<Integer, String>vocabulary){
+    int value = (int)(Math.random()*30000);
+    while (value > 19785){
+      value = (int)(Math.random()*30000);
+    }
+    return vocabulary.get(value);
   }
 }
