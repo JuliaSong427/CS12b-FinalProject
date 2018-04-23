@@ -21,8 +21,9 @@ public class PA09 extends JPanel{
   JTextField[] guess;
   JTextArea check;
   ArrayList<String> his = new ArrayList<String>();
-  String[] store = new String[lengths];
-  String[] answer = new String[lengths];
+  //String[] store = new String[lengths];
+  //String[] answer = new String[lengths];
+  MouseDrawDemo center;
 
 	public PA09(){
     super();
@@ -49,8 +50,7 @@ public class PA09 extends JPanel{
     JPanel ending2 = new JPanel();
     ending2.setLayout(new GridLayout(2,0));
 
-    JTextArea center = new JTextArea();
-    center.setEditable(false);
+    center = new MouseDrawDemo(6);
     JButton end = new JButton("End");
     JPanel wordguess = new JPanel();
     wordguess.setLayout(new GridLayout(1,word.length()+1));
@@ -66,6 +66,7 @@ public class PA09 extends JPanel{
     check = new JTextArea(2,5);
     JLabel checkword = new JLabel("guess");
     JButton checkB = new JButton("check");
+    checkB.setEnabled(false);
     checkletter.add(checkword);
     checkletter.add(check);
     checkletter.add(checkB);
@@ -96,6 +97,14 @@ public class PA09 extends JPanel{
     start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         guessGame(word);
+        check.setEditable(true);
+        checkB.setEnabled(true);
+        end.setEnabled(true);
+        left = 6;
+        records = 0;
+        counts = 0;
+        repeat.clear();
+        his.clear();
       }
     });
 
@@ -115,6 +124,22 @@ public class PA09 extends JPanel{
           checking(word);
         }
         check.setText("");
+      }
+    });
+
+    end.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        center.left = 6;
+        center.repaint();
+        intro.setText("");
+        intro1.setText("");
+        check.setText("");
+        check.setEditable(false);
+        checkB.setEnabled(false);
+        end.setEnabled(false);
+        for(int i=0; i<lengths; i++){
+          guess[i].setText("");
+        }
       }
     });
 	}
@@ -140,11 +165,12 @@ public class PA09 extends JPanel{
       else {
         left --;
         String pop = "Wrong guess! You have " + left +" chances left.";
+        wrongguess(left);
         intro1.setText(pop);
       }
     history(response);
     checkresults(counts, left, word);
-  //}
+    System.out.println(left);
   }
 
 
@@ -173,23 +199,26 @@ public class PA09 extends JPanel{
   }
 
 
-  public static int wrongguess(int left){
-      if (left == 6){
-        System.out.println("   +--+\n   |  |\n   |  O\n   |\n   |\n   |\n---+---");
-      }else if (left == 5){
-        System.out.println("   +--+\n   |  |\n   |  O\n   |  |\n   |\n   |\n---+---");
+  public void wrongguess(int left){
+      if (left == 5){
+        center.left = 5;
+        center.repaint();
       }else if (left == 4){
-        System.out.println("   +--+\n   |  |\n   |  O\n   | /|\n   |\n   |\n---+---");
+        center.left = 4;
+        center.repaint();
       }else if (left == 3){
-        System.out.println("   +--+\n   |  |\n   |  O\n   | /|\\\n   |\n   |\n---+---");
+        center.left = 3;
+        center.repaint();
       }else if (left == 2){
-        System.out.println("   +--+\n   |  |\n   |  O\n   | /|\\\n   | / \n   |\n---+---");
+        center.left = 2;
+        center.repaint();
       }else if (left == 1){
-        System.out.println("   +--+\n   |  |\n   |  O\n   | /|\\\n   | / \\\n   |\n---+---");
+        center.left = 1;
+        center.repaint();
+      }else if (left == 0){
+        center.left = 0;
+        center.repaint();
       }
-      left--;
-      System.out.println("Wrong guess !!!");
-      return left;
   }
 
   public void getFile(String filename){
@@ -227,15 +256,11 @@ public class PA09 extends JPanel{
       newContentPane.setOpaque(true); //content panes must be opaque
       frame.setContentPane(newContentPane);
 			frame.setLocation(100,70);
-			frame.setSize(1000,500);
-      //Display the window.
-      //frame.pack();
+			frame.setSize(1200,500);
       frame.setVisible(true);
   }
 
   public static void main(String[] args) {
-      //Schedule a job for the event-dispatching thread:
-      //creating and showing this application's GUI.
       javax.swing.SwingUtilities.invokeLater(new Runnable() {
           public void run() {
               createAndShowGUI();
