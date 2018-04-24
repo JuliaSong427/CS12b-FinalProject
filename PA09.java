@@ -96,6 +96,7 @@ public class PA09 extends JPanel{
 
     start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
+        start.setToolTipText("Click this button to start the game.");
         guessGame(word);
         check.setEditable(true);
         checkB.setEnabled(true);
@@ -110,6 +111,7 @@ public class PA09 extends JPanel{
 
     checkB.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
+        checkB.setToolTipText("Click this button to check the letter you enter.");
         String responseInfo = check.getText();
         if(responseInfo.length()!=1){
           intro1.setText("Please enter one letter.");
@@ -129,6 +131,7 @@ public class PA09 extends JPanel{
 
     end.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
+        end.setToolTipText("Click this button to end the game.");
         center.left = 6;
         center.repaint();
         intro.setText("");
