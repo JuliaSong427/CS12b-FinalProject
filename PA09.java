@@ -297,6 +297,11 @@ public class PA09 extends JPanel{
       JFrame frame = new JFrame("HangledMan");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+      JOptionPane.showMessageDialog(frame,
+      "You can start the game if and only if you choose the degree of dificulty.",
+      "Inane warning",
+      JOptionPane.WARNING_MESSAGE);
+
       //Create and set up the content pane.
       JComponent newContentPane = new PA09();
       newContentPane.setOpaque(true); //content panes must be opaque
