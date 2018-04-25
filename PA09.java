@@ -95,9 +95,16 @@ public class PA09 extends JPanel{
     checkPanel.add(mediumB);
     checkPanel.add(hardB);
 
+    JPanel pass = new JPanel();
+    pass.setLayout(new GridLayout(0,1));
+    JLabel passpass = new JLabel("Password:");
+    JPasswordField passwordField = new JPasswordField(4);
+    pass.add(passpass);
+    pass.add(passwordField);
+
     JPanel rightbar = new JPanel();
-    rightbar.setLayout(new GridLayout(0,2));
-    rightbar.add(end);rightbar.add(checkPanel);
+    rightbar.setLayout(new GridLayout(0,3));
+    rightbar.add(end);rightbar.add(checkPanel);rightbar.add(pass);
 
     content.add(title,BorderLayout.PAGE_START);
     content.add(start,BorderLayout.LINE_START);
