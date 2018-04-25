@@ -85,8 +85,11 @@ public class PA09 extends JPanel{
     ending.add(ending2);
 
     JCheckBox easyB = new JCheckBox("Easy");
+    easyB.setEnabled(false);
     JCheckBox mediumB = new JCheckBox("Medium");
+    mediumB.setEnabled(false);
     JCheckBox hardB = new JCheckBox("Hard");
+    hardB.setEnabled(false);
     JPanel checkPanel = new JPanel(new GridLayout(0, 1));
     checkPanel.add(easyB);
     checkPanel.add(mediumB);
@@ -95,11 +98,15 @@ public class PA09 extends JPanel{
     JPanel pass = new JPanel();
     pass.setLayout(new GridLayout(0,1));
     JLabel passpass = new JLabel("Password:");
-    JPasswordField passwordField = new JPasswordField(4);
+    JPasswordField passwordField = new JPasswordField(10);
     JButton okB = new JButton("OK");
+    JTextArea hint = new JTextArea("Hint: Everyone has it\n"+
+                                "and no one can lose it");
+    hint.setEditable(false);
     pass.add(passpass);
     pass.add(passwordField);
     pass.add(okB);
+    pass.add(hint);
 
     JPanel rightbar = new JPanel();
     rightbar.setLayout(new GridLayout(0,3));
@@ -112,21 +119,39 @@ public class PA09 extends JPanel{
     content.add(ending,BorderLayout.PAGE_END);
     System.out.print(word);
 
+    okB.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        char[] input = passwordField.getPassword();
+        char[] correctPassword = { 's', 'h', 'a', 'd','o','w' };
+        if (Arrays.equals (input, correctPassword)) {
+          easyB.setEnabled(true);
+          mediumB.setEnabled(true);
+          hardB.setEnabled(true);
+        }
+      }
+    });
+
     easyB.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         start.setEnabled(true);
+        mediumB.setEnabled(false);
+        hardB.setEnabled(false);
       }
     });
 
     mediumB.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         start.setEnabled(true);
+        easyB.setEnabled(false);
+        hardB.setEnabled(false);
       }
     });
 
     hardB.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         start.setEnabled(true);
+        easyB.setEnabled(false);
+        mediumB.setEnabled(false);
       }
     });
 
@@ -328,7 +353,7 @@ public class PA09 extends JPanel{
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       JOptionPane.showMessageDialog(frame,
-      "You can start the game if and only if you choose the degree of dificulty.",
+      "Enter the right password and choose the difficulty level, then start the game!!!",
       "Inane warning",
       JOptionPane.WARNING_MESSAGE);
 
