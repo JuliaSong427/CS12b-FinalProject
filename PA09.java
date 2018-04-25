@@ -21,8 +21,6 @@ public class PA09 extends JPanel{
   JTextField[] guess;
   JTextArea check;
   ArrayList<String> his = new ArrayList<String>();
-  //String[] store = new String[lengths];
-  //String[] answer = new String[lengths];
   MouseDrawDemo center;
 
 	public PA09(){
@@ -36,6 +34,7 @@ public class PA09 extends JPanel{
     JLabel title = new JLabel("<html><h1>Hangled Man</h1></html>");
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     JButton start = new JButton("Start");
+    start.setEnabled(false);
     intro = new JTextArea();
     intro.setText("At the beginning of this game, there is a randomly selected word."
       +" You are able to guess this word letter by letter.\n"
@@ -62,7 +61,6 @@ public class PA09 extends JPanel{
 
     JPanel checkletter = new JPanel();
     checkletter.setLayout(new FlowLayout());
-    //String[] check1= {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","e"};
     check = new JTextArea(2,5);
     JLabel checkword = new JLabel("guess");
     JButton checkB = new JButton("check");
@@ -89,12 +87,42 @@ public class PA09 extends JPanel{
     ending.add(ending1);
     ending.add(ending2);
 
+    JCheckBox easyB = new JCheckBox("Easy");
+    JCheckBox mediumB = new JCheckBox("Medium");
+    JCheckBox hardB = new JCheckBox("Hard");
+    JPanel checkPanel = new JPanel(new GridLayout(0, 1));
+    checkPanel.add(easyB);
+    checkPanel.add(mediumB);
+    checkPanel.add(hardB);
+
+    JPanel rightbar = new JPanel();
+    rightbar.setLayout(new GridLayout(0,2));
+    rightbar.add(end);rightbar.add(checkPanel);
+
     content.add(title,BorderLayout.PAGE_START);
     content.add(start,BorderLayout.LINE_START);
     content.add(center,BorderLayout.CENTER);
-    content.add(end,BorderLayout.LINE_END);
+    content.add(rightbar,BorderLayout.LINE_END);
     content.add(ending,BorderLayout.PAGE_END);
     System.out.print(word);
+
+    easyB.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        start.setEnabled(true);
+      }
+    });
+
+    mediumB.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        start.setEnabled(true);
+      }
+    });
+
+    hardB.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        start.setEnabled(true);
+      }
+    });
 
     start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
