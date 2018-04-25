@@ -51,7 +51,7 @@ public class PA09 extends JPanel{
     ending2.setLayout(new GridLayout(2,0));
 
     center = new MouseDrawDemo(6);
-    JButton end = new JButton("End");
+    JButton end = new JButton("Try again");
     JPanel wordguess = new JPanel();
     wordguess.setLayout(new GridLayout(1,word.length()+1));
     JPanel ending = new JPanel();
@@ -66,7 +66,9 @@ public class PA09 extends JPanel{
     check = new JTextArea(2,5);
     JLabel checkword = new JLabel("guess");
     JButton checkB = new JButton("check");
+    check.setEditable(false);
     checkB.setEnabled(false);
+    end.setEnabled(false);
     checkletter.add(checkword);
     checkletter.add(check);
     checkletter.add(checkB);
@@ -179,12 +181,25 @@ public class PA09 extends JPanel{
 
   public void history (String response){
     his.add(response);
+    writeMapToFile(his,"useinput.txt");
     String currentguess= "You have already guessed: ";
     for (int x = 0; x < his.size(); x++){
       currentguess+=his.get(x);
       currentguess+=", ";
     }
     intro.setText(currentguess);
+  }
+
+  public void writeMapToFile(ArrayList<String> d,String filename){
+    try {
+      PrintWriter writer = new PrintWriter(filename, "UTF-8");
+      for(String input: d){
+        writer.println(input);
+      }
+      writer.close();
+    } catch (Exception e){
+      System.out.println("Problem writing to file: "+e);
+    }
   }
 
 
