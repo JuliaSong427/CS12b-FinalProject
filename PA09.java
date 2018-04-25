@@ -4,9 +4,6 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-/**
-* This demo creates a telephone keyboard of buttons.
-*/
 public class PA09 extends JPanel{
 
   Map<Integer,String> vocabulary = new HashMap<Integer,String>();
@@ -20,7 +17,7 @@ public class PA09 extends JPanel{
   int counts = 0;
   JTextField[] guess;
   JTextArea check;
-  ArrayList<String> his = new ArrayList<String>();
+  ArrayList<String> his;
   MouseDrawDemo center;
 
 	public PA09(){
@@ -220,8 +217,9 @@ public class PA09 extends JPanel{
 
 
   public void history (String response){
+    his = readMapFromFile("userinput.txt");
     his.add(response);
-    writeMapToFile(his,"useinput.txt");
+    writeMapToFile(his,"userinput.txt");
     String currentguess= "You have already guessed: ";
     for (int x = 0; x < his.size(); x++){
       currentguess+=his.get(x);
