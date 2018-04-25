@@ -99,8 +99,10 @@ public class PA09 extends JPanel{
     pass.setLayout(new GridLayout(0,1));
     JLabel passpass = new JLabel("Password:");
     JPasswordField passwordField = new JPasswordField(4);
+    JButton okB = new JButton("OK");
     pass.add(passpass);
     pass.add(passwordField);
+    pass.add(okB);
 
     JPanel rightbar = new JPanel();
     rightbar.setLayout(new GridLayout(0,3));
