@@ -4,9 +4,6 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-/**
-* This demo creates a telephone keyboard of buttons.
-*/
 public class PA09 extends JPanel{
 
   Map<Integer,String> vocabulary = new HashMap<Integer,String>();
@@ -20,7 +17,9 @@ public class PA09 extends JPanel{
   int counts = 0;
   JTextField[] guess;
   JTextArea check;
-  ArrayList<String> his = new ArrayList<String>();
+  ArrayList<String> his;
+  //String[] store = new String[lengths];
+  //String[] answer = new String[lengths];
   MouseDrawDemo center;
 
 	public PA09(){
@@ -34,7 +33,6 @@ public class PA09 extends JPanel{
     JLabel title = new JLabel("<html><h1>Hangled Man</h1></html>");
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     JButton start = new JButton("Start");
-    start.setEnabled(false);
     intro = new JTextArea();
     intro.setText("At the beginning of this game, there is a randomly selected word."
       +" You are able to guess this word letter by letter.\n"
@@ -61,6 +59,7 @@ public class PA09 extends JPanel{
 
     JPanel checkletter = new JPanel();
     checkletter.setLayout(new FlowLayout());
+    //String[] check1= {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","e"};
     check = new JTextArea(2,5);
     JLabel checkword = new JLabel("guess");
     JButton checkB = new JButton("check");
@@ -87,55 +86,19 @@ public class PA09 extends JPanel{
     ending.add(ending1);
     ending.add(ending2);
 
-    JCheckBox easyB = new JCheckBox("Easy");
-    JCheckBox mediumB = new JCheckBox("Medium");
-    JCheckBox hardB = new JCheckBox("Hard");
-    JPanel checkPanel = new JPanel(new GridLayout(0, 1));
-    checkPanel.add(easyB);
-    checkPanel.add(mediumB);
-    checkPanel.add(hardB);
-
-    JPanel pass = new JPanel();
-    pass.setLayout(new GridLayout(0,1));
-    JLabel passpass = new JLabel("Password:");
-    JPasswordField passwordField = new JPasswordField(4);
-    JButton okB = new JButton("OK");
-    pass.add(passpass);
-    pass.add(passwordField);
-    pass.add(okB);
-
-    JPanel rightbar = new JPanel();
-    rightbar.setLayout(new GridLayout(0,3));
-    rightbar.add(end);rightbar.add(checkPanel);rightbar.add(pass);
-
     content.add(title,BorderLayout.PAGE_START);
     content.add(start,BorderLayout.LINE_START);
     content.add(center,BorderLayout.CENTER);
-    content.add(rightbar,BorderLayout.LINE_END);
+    content.add(end,BorderLayout.LINE_END);
     content.add(ending,BorderLayout.PAGE_END);
     System.out.print(word);
-
-    easyB.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        start.setEnabled(true);
-      }
-    });
-
-    mediumB.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        start.setEnabled(true);
-      }
-    });
-
-    hardB.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        start.setEnabled(true);
-      }
-    });
 
     start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         start.setToolTipText("Click this button to start the game.");
+        delete("userinput.txt");
+        ArrayList<String> nw = new ArrayList<String>();
+        writeMapToFile(nw,"userinput.txt");
         guessGame(word);
         check.setEditable(true);
         checkB.setEnabled(true);
@@ -170,7 +133,7 @@ public class PA09 extends JPanel{
 
     end.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
-        end.setToolTipText("Click this button to end the game.");
+        end.setToolTipText("Click this button to try again.");
         center.left = 6;
         center.repaint();
         intro.setText("");
@@ -217,8 +180,9 @@ public class PA09 extends JPanel{
 
 
   public void history (String response){
+    his = readMapFromFile("userinput.txt");
     his.add(response);
-    writeMapToFile(his,"useinput.txt");
+    writeMapToFile(his,"userinput.txt");
     String currentguess= "You have already guessed: ";
     for (int x = 0; x < his.size(); x++){
       currentguess+=his.get(x);
@@ -237,6 +201,30 @@ public class PA09 extends JPanel{
     } catch (Exception e){
       System.out.println("Problem writing to file: "+e);
     }
+  }
+
+
+  public void delete(String filename){
+    File file = new File(filename);
+    file.delete();
+  }
+
+
+
+  public static ArrayList<String> readMapFromFile(String filename){
+      ArrayList d = new ArrayList<String>();
+      try{
+        File file = new File(filename);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()){
+          String line = scanner.nextLine();
+          d.add(line);
+        }
+        scanner.close();
+      } catch (FileNotFoundException e){
+        System.out.println("Problem reading map from file "+e);
+      }
+      return d;
   }
 
 
@@ -305,11 +293,6 @@ public class PA09 extends JPanel{
       //Create and set up the window.
       JFrame frame = new JFrame("HangledMan");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-      JOptionPane.showMessageDialog(frame,
-      "You can start the game if and only if you choose the degree of dificulty.",
-      "Inane warning",
-      JOptionPane.WARNING_MESSAGE);
 
       //Create and set up the content pane.
       JComponent newContentPane = new PA09();
