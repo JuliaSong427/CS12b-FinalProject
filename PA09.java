@@ -38,7 +38,7 @@ public class PA09 extends JPanel{
       +" You are able to guess this word letter by letter.\n"
       +"You have 6 opportunities to have a wrong guess."
       +" After the man in the middle of the window is drawn completely, you lose.\n"
-      +"Press “Start” Button to start the game, and the “End” Button to exit the game.");
+      +"Press 'Start' Button to start the game, and the 'End' Button to exit the game.");
     intro.setEditable(false);
 
     intro1 = new JTextArea();
