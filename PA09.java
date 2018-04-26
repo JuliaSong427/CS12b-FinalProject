@@ -19,6 +19,7 @@ public class PA09 extends JPanel{
   JTextArea check;
   ArrayList<String> his;
   MouseDrawDemo center;
+  JButton checkB;
 
 	public PA09(){
     super();
@@ -60,7 +61,7 @@ public class PA09 extends JPanel{
     checkletter.setLayout(new FlowLayout());
     check = new JTextArea(2,5);
     JLabel checkword = new JLabel("guess");
-    JButton checkB = new JButton("check");
+    checkB = new JButton("check");
     check.setEditable(false);
     checkB.setEnabled(false);
     end.setEnabled(false);
@@ -237,7 +238,6 @@ public class PA09 extends JPanel{
       }
     history(response);
     checkresults(counts, left, word);
-    System.out.println(left);
   }
 
 
@@ -290,6 +290,7 @@ public class PA09 extends JPanel{
     if (counts == word.length()){
       intro1.setText("Congratulations, you get the word and save a life!");
       check.setEditable(false);
+      checkB.setEnabled(false);
     }
     if (left == 0){
       String sentence = "Sorry you lose the game. Good luck next time!\n"
