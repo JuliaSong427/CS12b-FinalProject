@@ -4,10 +4,11 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class PA09 extends JPanel{
+public class FinalProject extends JPanel{
 
   Map<Integer,String> vocabulary = new HashMap<Integer,String>();
   Map<String,Integer> repeat = new HashMap<String,Integer>();
+  Map<Integer,String> his = new HashMap<Integer,String>();
   JTextArea intro,intro1;
   String response;
   int times;
@@ -17,11 +18,11 @@ public class PA09 extends JPanel{
   int counts = 0;
   JTextField[] guess;
   JTextArea check;
-  ArrayList<String> his;
   MouseDrawDemo center;
   JButton checkB;
+  int lettercount = 0;
 
-	public PA09(){
+	public FinalProject(){
     super();
     JPanel content = this;
     content.setLayout(new BorderLayout());
@@ -159,9 +160,6 @@ public class PA09 extends JPanel{
     start.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         start.setToolTipText("Click this button to start the game.");
-        delete("userinput.txt");
-        ArrayList<String> nw = new ArrayList<String>();
-        writeMapToFile(nw,"userinput.txt");
         guessGame(word);
         check.setEditable(true);
         checkB.setEnabled(true);
@@ -242,9 +240,8 @@ public class PA09 extends JPanel{
 
 
   public void history (String response){
-    his = readMapFromFile("userinput.txt");
-    his.add(response);
-    writeMapToFile(his,"userinput.txt");
+    his.put(lettercount, response);
+    lettercount++;
     String currentguess= "You have already guessed: ";
     for (int x = 0; x < his.size(); x++){
       currentguess+=his.get(x);
@@ -359,7 +356,7 @@ public class PA09 extends JPanel{
       JOptionPane.WARNING_MESSAGE);
 
       //Create and set up the content pane.
-      JComponent newContentPane = new PA09();
+      JComponent newContentPane = new FinalProject();
       newContentPane.setOpaque(true); //content panes must be opaque
       frame.setContentPane(newContentPane);
 			frame.setLocation(100,70);
